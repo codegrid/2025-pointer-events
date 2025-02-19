@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>主要ポインターの判定</title>
+  <style>
+  body {
+    margin: 0;
+    background-color: white;
+  }
+
+  .stage {
+    border: 1px solid silver;
+    margin: 0.5em;
+    height: 50vh;
+    background-color: ivory;
+    touch-action: none;
+  }
+
+  ul, p {
+    padding-inline-start: 3em;
+  }
+  </style>
+</head>
+<body>
+<div id="app" class="stage"></div>
+<ul>
+  <li>pointerdown: <span id="pointerdown">0, 0</span></li>
+  <li>pointermove: <span id="pointermove">0, 0</span></li>
+  <li>pointerup: <span id="pointerup">0, 0</span></li>
+  <li>pointer type: <span id="pointerType">unknown</span></li>
+  <li>pressure: <span id="pressure">0</span></li>
+  <li>is primary: <span id="isPrimary" style="color: tomato; font-weight: bold">false</span></li>
+</ul>
+<p>
+  <button id="reset">リセット</button>
+</p>
+<script>
+const app = document.getElementById("app");
+const pointerdown = document.getElementById("pointerdown");
+const pointermove = document.getElementById("pointermove");
+const pointerup = document.getElementById("pointerup");
+const reset = document.getElementById("reset");
+const pointerType = document.getElementById("pointerType");
+const pressure = document.getElementById("pressure");
+const isPrimary = document.getElementById("isPrimary");
+
+function getFixedValue(value) {
+  return value.toFixed(5);
+}
+
+app.addEventListener("pointerdown", (event) => {
+  isPrimary.textContent = `${event.isPrimary}`;
+  if (event.pointerType === "touch" && !event.isPrimary) {
+    return;
+  }
+  pointerdown.textContent = `${getFixedValue(event.clientX)}, ${getFixedValue(event.clientY)}`;
+  pointerType.textContent = event.pointerType;
+  pressure.textContent = `${event.pressure}`;
+});
+
+app.addEventListener("pointermove", (event) => {
+  isPrimary.textContent = `${event.isPrimary}`;
+  if (
+    (event.pointerType === "mouse" && event.pressure === 0) ||
+    event.pointerType === "touch" && !event.isPrimary
+  ) {
+    return;
+  }
+  pointermove.textContent = `${getFixedValue(event.clientX)}, ${getFixedValue(event.clientY)}`;
+  pointerType.textContent = event.pointerType;
+  pressure.textContent = `${event.pressure}`;
+});
+
+app.addEventListener("pointerup", (event) => {
+  isPrimary.textContent = `${event.isPrimary}`;
+  if (event.pointerType === "touch" && !event.isPrimary) {
+    return;
+  }
+  pointerup.textContent = `${getFixedValue(event.clientX)}, ${getFixedValue(event.clientY)}`;
+  pointerType.textContent = event.pointerType;
+  pressure.textContent = `${event.pressure}`;
+});
+
+reset.addEventListener("click", () => {
+  pointerdown.textContent = "0, 0";
+  pointermove.textContent = "0, 0";
+  pointerup.textContent = "0, 0";
+  pointerType.textContent = "unknown";
+  pressure.textContent = "0";
+  isPrimary.textContent = "false";
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>ポインターの座標と種類を取得して表示する</title>
+  <style>
+  body {
+    margin: 0;
+    background-color: white;
+  }
+
+  .stage {
+    border: 1px solid silver;
+    margin: 0.5em;
+    height: 50vh;
+    background-color: ivory;
+    touch-action: none;
+  }
+
+  ul, p {
+    padding-inline-start: 3em;
+  }
+  </style>
+</head>
+<body>
+<div id="app" class="stage"></div>
+<ul>
+  <li>pointerdown: <span id="pointerdown">0, 0</span></li>
+  <li>pointermove: <span id="pointermove">0, 0</span></li>
+  <li>pointerup: <span id="pointerup">0, 0</span></li>
+  <li>pointer type: <span id="pointerType"　style="color: tomato; font-weight: bold">unknown</span></li>
+</ul>
+<p>
+  <button id="reset">リセット</button>
+</p>
+<script>
+const app = document.getElementById("app");
+const pointerdown = document.getElementById("pointerdown");
+const pointermove = document.getElementById("pointermove");
+const pointerup = document.getElementById("pointerup");
+const reset = document.getElementById("reset");
+const pointerType = document.getElementById("pointerType");
+
+function getFixedValue(value) {
+  return value.toFixed(5);
+}
+
+app.addEventListener("pointerdown", (event) => {
+  pointerdown.textContent = `${getFixedValue(event.clientX)}, ${getFixedValue(event.clientY)}`;
+  pointerType.textContent = event.pointerType;
+});
+
+app.addEventListener("pointermove", (event) => {
+  pointermove.textContent = `${getFixedValue(event.clientX)}, ${getFixedValue(event.clientY)}`;
+  pointerType.textContent = event.pointerType;
+});
+
+app.addEventListener("pointerup", (event) => {
+  pointerup.textContent = `${getFixedValue(event.clientX)}, ${getFixedValue(event.clientY)}`;
+  pointerType.textContent = event.pointerType;
+});
+
+reset.addEventListener("click", () => {
+  pointerdown.textContent = "0, 0";
+  pointermove.textContent = "0, 0";
+  pointerup.textContent = "0, 0";
+  pointerType.textContent = "unknown";
+});
+</script>
+</body>
+</html>
