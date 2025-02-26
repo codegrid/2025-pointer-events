@@ -41,20 +41,20 @@ const pointermove = document.getElementById("pointermove");
 const pointerup = document.getElementById("pointerup");
 const reset = document.getElementById("reset");
 
-function getFixedValue(value) {
+function toFixedValue(value) {
   return value.toFixed(5);
 }
 
 app.addEventListener("pointerdown", (event) => {
-  pointerdown.textContent = `${getFixedValue(event.clientX)}, ${getFixedValue(event.clientY)}`;
+  pointerdown.textContent = `${toFixedValue(event.clientX)}, ${toFixedValue(event.clientY)}`;
 });
 
 app.addEventListener("pointermove", (event) => {
-  pointermove.textContent = `${getFixedValue(event.clientX)}, ${getFixedValue(event.clientY)}`;
+  pointermove.textContent = `${toFixedValue(event.clientX)}, ${toFixedValue(event.clientY)}`;
 });
 
 app.addEventListener("pointerup", (event) => {
-  pointerup.textContent = `${getFixedValue(event.clientX)}, ${getFixedValue(event.clientY)}`;
+  pointerup.textContent = `${toFixedValue(event.clientX)}, ${toFixedValue(event.clientY)}`;
 });
 
 reset.addEventListener("click", () => {

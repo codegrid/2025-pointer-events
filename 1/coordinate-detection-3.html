@@ -45,12 +45,12 @@ const reset = document.getElementById("reset");
 const pointerType = document.getElementById("pointerType");
 const pressure = document.getElementById("pressure");
 
-function getFixedValue(value) {
+function toFixedValue(value) {
   return value.toFixed(5);
 }
 
 app.addEventListener("pointerdown", (event) => {
-  pointerdown.textContent = `${getFixedValue(event.clientX)}, ${getFixedValue(event.clientY)}`;
+  pointerdown.textContent = `${toFixedValue(event.clientX)}, ${toFixedValue(event.clientY)}`;
   pointerType.textContent = event.pointerType;
   pressure.textContent = `${event.pressure}`;
 });
@@ -59,13 +59,13 @@ app.addEventListener("pointermove", (event) => {
   if (event.pointerType === "mouse" && event.pressure === 0) {
     return;
   }
-  pointermove.textContent = `${getFixedValue(event.clientX)}, ${getFixedValue(event.clientY)}`;
+  pointermove.textContent = `${toFixedValue(event.clientX)}, ${toFixedValue(event.clientY)}`;
   pointerType.textContent = event.pointerType;
   pressure.textContent = `${event.pressure}`;
 });
 
 app.addEventListener("pointerup", (event) => {
-  pointerup.textContent = `${getFixedValue(event.clientX)}, ${getFixedValue(event.clientY)}`;
+  pointerup.textContent = `${toFixedValue(event.clientX)}, ${toFixedValue(event.clientY)}`;
   pointerType.textContent = event.pointerType;
   pressure.textContent = `${event.pressure}`;
 });
