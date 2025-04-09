@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>ポインターの座標を取得して表示する 2</title>
+  <style>
+  body {
+    margin: 0;
+    background-color: white;
+  }
+
+  .stage {
+    border: 1px solid silver;
+    margin: 0.5em;
+    height: 50vh;
+    background-color: ivory;
+    touch-action: none;
+  }
+
+  ul, p {
+    padding-inline-start: 3em;
+  }
+  </style>
+</head>
+<body>
+<div id="app" class="stage"></div>
+<ul>
+  <li>pointerdown: <span id="pointerdown">0, 0</span></li>
+  <li>pointermove: <span id="pointermove">0, 0</span></li>
+  <li>pointerup: <span id="pointerup">0, 0</span></li>
+</ul>
+<p>
+  <button id="reset">リセット</button>
+</p>
+<script>
+const app = document.getElementById("app");
+const pointerdown = document.getElementById("pointerdown");
+const pointermove = document.getElementById("pointermove");
+const pointerup = document.getElementById("pointerup");
+const reset = document.getElementById("reset");
+
+let isPointerDown = false;
+
+function toFixedValue(value) {
+  return value.toFixed(5);
+}
+
+app.addEventListener("pointerdown", (event) => {
+  isPointerDown = true;
+  pointerdown.textContent = `${toFixedValue(event.clientX)}, ${toFixedValue(event.clientY)}`;
+});
+
+app.addEventListener("pointermove", (event) => {
+  if (!isPointerDown) {
+    return;
+  }
+  pointermove.textContent = `${toFixedValue(event.clientX)}, ${toFixedValue(event.clientY)}`;
+});
+
+app.addEventListener("pointerup", (event) => {
+  pointerup.textContent = `${toFixedValue(event.clientX)}, ${toFixedValue(event.clientY)}`;
+  isPointerDown = false;
+});
+
+app.addEventListener("pointercancel", (event) => {
+  isPointerDown = false;
+});
+
+app.addEventListener("contextmenu", (event) => {
+  isPointerDown = false;
+});
+
+reset.addEventListener("click", () => {
+  pointerdown.textContent = "0, 0";
+  pointermove.textContent = "0, 0";
+  pointerup.textContent = "0, 0";
+});
+</script>
+</body>
+</html>

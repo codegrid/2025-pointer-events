@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>ポインターのIDを取得して表示する</title>
+  <style>
+  body {
+    margin: 0;
+    background-color: white;
+    touch-action: none;
+    user-select: none;
+  }
+
+  ul, p {
+    padding-inline-start: 3em;
+  }
+  </style>
+</head>
+<body>
+<ul id="log">
+</ul>
+<p>
+  <button id="reset">リセット</button>
+</p>
+<script>
+const log = document.getElementById("log");
+const reset = document.getElementById("reset");
+
+window.addEventListener("pointerdown", (event) => {
+  if (event.target.tagName === "BUTTON") {
+    return;
+  }
+  const li = document.createElement("li");
+  li.textContent = `id: ${event.pointerId}`;
+  log.appendChild(li);
+});
+
+reset.addEventListener("click", (event) => {
+  log.innerHTML = "";
+});
+</script>
+</body>
+</html>
